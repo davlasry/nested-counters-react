@@ -1,17 +1,23 @@
 import React, {useState} from 'react';
-import {useSelector} from "react-redux";
 
-export const Counter = () => {
+export const Node = ({nodesDataById, nodeId}) => {
     const [counterValue, setCounterValue] = useState(0);
-    const nodesDataById = useSelector(({nodesReducer}) => nodesReducer.nodesDataById);
-    console.log(nodesDataById);
 
     return (
         <div>
-            <span>Counter: {counterValue}</span>
-            <button onClick={() => setCounterValue(counterValue + 1)} style={{marginLeft: '5px'}}>+</button>
+            <div>
+                <span>Counter: {counterValue}</span>
+                <button onClick={() => setCounterValue(counterValue + 1)} style={{marginLeft: '5px'}}>+</button>
+                <span onClick={() => setCounterValue(counterValue + 1)}
+                      style={{marginLeft: '5px', color: 'grey'}}>x</span>
+            </div>
+
             <ul>
-                <li></li>
+                {(nodesDataById[nodeId].children || []).map((childId, index) =>
+                    (<li key={index}>
+                        <Node nodesDataById={nodesDataById} nodeId={childId}/>
+                    </li>)
+                )}
             </ul>
         </div>
     )

@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
-import {Counter} from "./Counter/Counter";
+import {Node} from "./Counter/Node";
+import {useSelector} from "react-redux";
 
-function App() {
+const App = () => {
+    const nodesDataById = useSelector(({nodesReducer}) => nodesReducer.nodesDataById);
+    const rootNodeId = useSelector(({nodesReducer}) => nodesReducer.rootNodeId);
+
     return (
-        <Counter/>
+        <Node nodesDataById={nodesDataById} nodeId={rootNodeId}/>
     );
 }
 
